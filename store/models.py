@@ -1,4 +1,5 @@
 from django.db import models
+
 # manytomany relationships between Promotion and Product
 
 
@@ -13,6 +14,7 @@ class Promotion(models.Model):
 
 class Collection(models.Model):
     title = models.CharField(max_length=50)
+    featured_product = models.ForeignKey('Product', on_delete=models.SET_NULL, null = True, related_name = '+')
 
 
 # Product
@@ -28,7 +30,8 @@ class Product(models.Model):
     inventory = models.IntegerField()
     last_update = models.DateTimeField(auto_now=True)
     collection = models.ForeignKey(Collection, on_delete=models.PROTECT)
-    promotions = models.ManyToManyField(Promotion, related_name='products')  # it shows the reverse relation
+    promotions = models.ManyToManyField(
+        Promotion, related_name='products')  # it shows the reverse relation
 
 
 # Customer
@@ -87,6 +90,7 @@ class Cart(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
 # CartItem
+
 
 class CartItem(models.Model):
     cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
