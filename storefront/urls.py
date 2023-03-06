@@ -39,7 +39,6 @@ path("single-product-onsale.html/", views.single_product_onsale,name="single_pro
 path("single-product-simple/", views.single_product_simple,name="single_product_simple"),
 path("single-product.html/", views.single_product, name="single_product"),
 path("404.html/", views.error_404, name="error_404"),
-
 ]
 
 

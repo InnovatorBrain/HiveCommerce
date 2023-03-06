@@ -24,9 +24,10 @@ class Collection(models.Model):
 class Product(models.Model):
     sku = models.CharField(max_length=100, primary_key=True)
     title = models.CharField(max_length=255)
+    slug = models.SlugField(default='-')
     sku = models.IntegerField()
     description = models.TextField()
-    price = models.DecimalField(max_digits=6, decimal_places=2)
+    unit_price = models.DecimalField(max_digits=6, decimal_places=2)
     inventory = models.IntegerField()
     last_update = models.DateTimeField(auto_now=True)
     collection = models.ForeignKey(Collection, on_delete=models.PROTECT)
@@ -78,6 +79,7 @@ class OrderItem(models.Model):
 class Address(models.Model):
     street = models.CharField(max_length=200)
     city = models.CharField(max_length=200)
+    zip = models.CharField(max_length=25, default=0)
     # show the relation ship with Customer class "one to one"
     # customer = models.OneToOneField(Customer, on_delete=models.CASCADE, primary_key=True)
     # but we want to allow for many addresses
@@ -96,3 +98,4 @@ class CartItem(models.Model):
     cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     quantity = models.PositiveBigIntegerField()
+
