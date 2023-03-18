@@ -1,20 +1,12 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from store.models import Product
+from store.models import Product, OrderItem
 from django.db.models import Q
 # ORM for testing purpose
 
 
 def say_hello(request):
-    # Practising ORM
-    # queryset = Product.objects.filter(unit_price__range=(20,30))
-    # queryset = Product.objects.filter(collection__id__range=(1,2,3))
-    #  queryset = Product.objects.filter(title__startswith='coffee')
-    # queryset = Product.objects.filter(title__icontains='coffee')
-    # queryset = Product.objects.filter(description__isnull=True)
-    # queryset = Product.objects.filter(last_update__year=2021)
-    # queryset = Product.objects.filter(Q(inventory__lt=10) & ~Q(unit_price__lt=20))
-   queryset = Product.objects.all()[10:]
+   queryset = Product.objects.defer('description')
    return render(request, "say_hello.html", {"name": "Faizan", 'products': list(queryset)})
 
 
